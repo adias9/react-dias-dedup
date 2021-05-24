@@ -1,0 +1,185 @@
+body {
+  margin: 0;
+}
+
+h1, p {
+  font-family: Lato;
+}
+
+/* ChatUI.js --------------------------------------------------------------- */
+div.chat-ui-container {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+div.chat-ui-container > header {
+  align-items: center;
+  border-bottom: 1px solid;
+  /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); */
+
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  margin: 0 1rem;
+}
+div.chat-ui-container > header > h1 {
+  margin: 1rem 0;
+}
+div.chat-ui-container > header > label {
+  align-items: center;
+  display: flex;
+}
+div.chat-messages {
+  align-items: flex-end;
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  /* justify-content: flex-end; */
+  overflow: scroll;
+  padding: 2rem;
+}
+div.chat-ui-container > footer {
+  background-color: darkGray;
+  padding: 2rem;
+}
+
+/* Modal.js ---------------------------------------------------------------- */
+div.modal-background {
+  background-color: rgba(244, 244, 244, 0.8);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+div.modal-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2),0 2px 4px 0 rgba(0, 0, 0, 0.1),inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  padding: 0.83rem;
+  position: relative;
+}
+h2.modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0.83em 0;
+  text-align: center;
+}
+div.modal-close {
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  font-weight: bold;
+
+  position: absolute;
+  right: 18px;
+  top: 23px;
+
+  padding: 10px 13px;
+}
+div.modal-close:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+footer.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+button.modal-confirm {
+  background-color: #1E42D3;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px;
+}
+button.modal-cancel {
+  background-color: transparent;
+  border: 0;
+  color: #1DC6D8;
+  font-weight: 600;
+  margin-right: 16px;
+}
+button.modal-confirm:hover,
+button.modal-cancel:hover {
+  cursor: pointer;
+  opacity: 0.5;
+  text-decoration: underline;
+}
+/* Messages.js ------------------------------------------------------------- */
+div.loading-container {
+  margin: 1rem auto;
+}
+span.loading-icon {
+  color: #1E42D3;
+  font-size: 24;
+}
+
+/* Message.js -------------------------------------------------------------- */
+div.chat-message {
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+
+div.chat-message.recipient {
+  align-self: flex-start;
+}
+
+p.message-content {
+  border-radius: 1rem;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem;
+}
+p.message-content.sender {
+  background-color: #1E42D3;
+  border-bottom-right-radius: 0;
+  color: #fff;
+}
+p.message-content.recipient {
+  background-color: lightGray;
+  border-top-left-radius: 0;
+  color: #000;
+}
+
+p.message-timestamp {
+  color: #8A8D91;
+  font-size: 10px;
+  font-style: italic;
+  margin: 0;
+}
+
+div.message-delete {
+  display: none;
+  color: #8A8D91;
+
+  position: absolute;
+  top: calc(-50% + 22px);
+
+  padding: 10px 20px;
+}
+div.message-delete > span {
+  padding: 6px 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+div.message-delete:hover,
+div.chat-message:hover > div.message-delete {
+  display: block;
+}
+div.message-delete > span:hover {
+  background-color: rgba(0, 0, 0, 0.10);
+}
+div.chat-message.sender:hover > div.message-delete {
+  left: -60px;
+}
+div.chat-message.recipient:hover > div.message-delete {
+  right: -60px;
+}

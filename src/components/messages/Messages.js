@@ -12,40 +12,37 @@ export default function Messages({ messages, handleDeleteButton }) {
   const [loading, setLoading] = useState(false);
   const [currentEnd, setCurrentEnd] = useState(5);
   const [page, setPage] = useState(0);
+  const [isFetching, setIsFetching] = useState(false);
 
-  // const handleObserver = (entities, observer) => {
-  //   const y = entities[0].boundingClientRect.y;
-  //   console.log("observing: ", y);
-  //   if (prevY > y) {
-  //     const lastMessage = chatMessages[chatMessages.length - 1];
-  //     const curPage = Math.ceil(lastMessage / PAGESIZE) - 1;
-  //     getMessages(curPage);
-  //     setPage(curPage);
-  //   }
-  //   setPrevY(y);
-  // };
+  function isScrolling() {
+    let chatMessagesElement = document.getElementById('chat-messages');
+    if (chatMessagesElement.scrollTop === 0 && (chatMessagesElement.scrollHeight > chatMessagesElement.offsetHeight)) {
+      console.log("scrolling up");
+      setIsFetching(true);
+    } else {
+      return;
+    }
+  }
 
-  // useEffect(() => {
-  //   const options = {
-  //     root: null,
-  //     rootMargin: "0px",
-  //     threshold: 1.0
-  //   };
-  //   const observer = new IntersectionObserver(
-  //     handleObserver,
-  //     options
-  //   );
-  //   if (loadingRef.current)
-  //     observer.observe(loadingRef.current);
-  // }, [loadingRef]);
+  useEffect(() => {
+    if (isFetching)
+      loadMore();
+  }, [isFetching]);
 
-  const loadMore = (e) => {
+  useEffect(() => {
+    let chatMessagesElement = document.getElementById('chat-messages');
+    chatMessagesElement.addEventListener("scroll", isScrolling);
+    return () => chatMessagesElement.removeEventListener("scroll", isScrolling);
+  }, []);
+
+  const loadMore = () => {
     setLoading(true);
 
     setTimeout(() => {
       setPage(page + 1);
       setCurrentEnd(Math.min(currentEnd + PAGESIZE, messages.length));
       setLoading(false);
+      setIsFetching(false);
     }, 500);
   };
 

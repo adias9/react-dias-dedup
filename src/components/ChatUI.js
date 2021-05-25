@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 // Components
 import Modal from './modal/Modal';
 import Messages from './messages/Messages';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 // Helper Functions
 import {
@@ -61,7 +63,12 @@ function ChatHeader({ setMessageSortOrder, messageSortOrder }) {
       <h1>Modern Health Chat</h1>
       <label>
         Ordered By:&nbsp;
-        <button onClick={()=>setMessageSortOrder(messageSortOrder === DESC ? ASC : DESC)}>{messageSortOrder}</button>
+        <button
+          className="modal-confirm"
+          onClick={()=>setMessageSortOrder(messageSortOrder === DESC ? ASC : DESC)}
+        >
+          {messageSortOrder === DESC ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown} />}
+        </button>
       </label>
     </header>
   );

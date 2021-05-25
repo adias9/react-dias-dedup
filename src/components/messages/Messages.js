@@ -14,15 +14,16 @@ export default function Messages({ messages, handleDeleteButton }) {
   const [page, setPage] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
 
-  function isScrolling() {
+  const isScrolling = () => {
     let chatMessagesElement = document.getElementById('chat-messages');
-    if (chatMessagesElement.scrollTop === 0 && (chatMessagesElement.scrollHeight > chatMessagesElement.offsetHeight)) {
-      console.log("scrolling up");
+    if (chatMessagesElement.scrollTop === 0
+      && chatMessagesElement.scrollHeight > chatMessagesElement.offsetHeight
+    ) {
       setIsFetching(true);
     } else {
       return;
     }
-  }
+  };
 
   useEffect(() => {
     if (isFetching)
@@ -36,14 +37,18 @@ export default function Messages({ messages, handleDeleteButton }) {
   }, []);
 
   const loadMore = () => {
-    setLoading(true);
+    if (currentEnd < messages.length) {
+      setLoading(true);
 
-    setTimeout(() => {
-      setPage(page + 1);
-      setCurrentEnd(Math.min(currentEnd + PAGESIZE, messages.length));
-      setLoading(false);
+      setTimeout(() => {
+        setPage(page + 1);
+        setCurrentEnd(Math.min(currentEnd + PAGESIZE, messages.length));
+        setLoading(false);
+        setIsFetching(false);
+      }, 500);
+    } else {
       setIsFetching(false);
-    }, 500);
+    }
   };
 
   return (
